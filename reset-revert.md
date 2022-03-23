@@ -62,3 +62,32 @@ git reset 3ddb05d --hard
 Agora poderá logar o histórico para verificar em qual commit está apontando:
 
 git log --oneline
+
+### Utilizando git revert
+
+da mesma forma pode-se utilizar orientado a HASH e HEAD, assim como git reset, então vou especificar apenas usando HEAD, o git revert serve para reverter um commit gerando outro novo commit, então criando 3 arquivos de exemplo:
+
+echo > arquivo1.txt
+echo > arquivo2.txt
+echo > arquivo3.txt
+
+Movendo para Staging Area e commitando cada um:
+
+git add arquivo1.txt
+git commit -m "Arquivo1"
+
+git add arquivo2.txt
+git commit -m "Arquivo2"
+
+git add arquivo3.txt
+git commit -m "Arquivo3"
+
+Movendo para o repositório remoto:
+
+git push origin main
+
+Dando git log --oneline é possível ver as HASHes de cada commit, nomeados de arquivo1, arquivo2, arquivo3 e a HEAD apontando para o último commit, que é arquivo3, mas agora eu vou "reverter" o processo do Arquivo1, então digamos que em um cenário eu alterei 5 linhas do arquivo1.txt antes de mover para a Staging Area e commitar, e +1 linha do arquivo2 e +2 linhas do arquivo3, com git revert ele vai criar um novo commit revertendo o processo de modificação destas linhas de cada arquivo, ficando assim:
+
+git revert HEAD~2
+
+Então um novo commit é criado com o Arquivo1, Arquivo2 e Arquivo3 sem as modificações.
